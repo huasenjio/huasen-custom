@@ -1,0 +1,11 @@
+{
+  "name": "计算方案服务",
+  "version": "1.0.0",
+  "description": "API接口文档",
+  "title": "计算方案服务API接口文档",
+  "forceLanguage": "zh-cn",
+  "template": {
+    "withCompare": true,
+    "withGenerator": true
+  }
+}

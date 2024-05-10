@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="./index2.css" />
+  <script type="text/javascript" src="./index2.js"></script>
+</head>
+
+<body>
+  <div style="text-align: center;">
+    <form id="myForm">产品颜色:
+      <select id="selectedItem">
+        <option value="1">白色产品</option>
+        <option value="2">黑色产品</option>
+        <option value="3">有色产品</option>
+        <option value="4">大理石产品</option>
+      </select>
+    </form>
+    <form id="myFormTec">工艺名称:
+      <select id="Number_99" name="工艺选择">
+        <option value="1">单色素面</option>
+        <option value="2">双色素面</option>
+        <option value="3">三色素面</option>
+        <option value="4">白色单面贴花</option>
+        <option value="5">白色双面贴花</option>
+        <option value="6">黑色单面贴花</option>
+        <option value="7">黑色双面贴花</option>
+        <option value="8">有色单面贴花</option>
+        <option value="9">有色双面贴花</option>
+        <option value="10">双色单面贴花</option>
+        <option value="11">双色双面贴花</option>
+        <option value="12">三色单面贴花</option>
+        <option value="13">三色双面贴花</option>
+      </select>
+    </form>
+
+    <form id="myFormTec">订单数量:
+      <select id="Number_OrderQty" name="订单数量">
+        <option value="1000">1000个</option>
+        <option value="2000">2000个</option>
+        <option value="3000">3000个</option>
+        <option value="4000">4000个</option>
+        <option value="5000">5000个</option>
+        <option value="6000">6000个</option>
+        <option value="7000">7000个</option>
+        <option value="8000">8000个</option>
+        <option value="9000">9000个</option>
+        <option value="10000">10000个</option>
+        <option value="11000">11000个</option>
+        <option value="15000">15000个</option>
+        <option value="20000">20000个</option>
+      </select>
+    </form>
+    产品重量:<input type="text" id="number_3" style="width:50px" pattern="[0-9]*" /><br />
+    产品模穴:<input type="text" id="number_88" style="width:50px" pattern="[0-9]*" /><br />
+    <form id="fisrtFloorNumber">成型人数:
+      <select id="number_4">
+        <option value="1">1个人做</option>
+        <option value="2">2个人做</option>
+      </select>
+    </form>
+    排版个数:<input type="text" id="number_8" style="width:50px" value="100" pattern="[0-9]*" /><br />
+    纸箱单价:<input type="text" id="number_9" style="width:50px" pattern="[0-9]*" /><br />
+    装箱个数:<input type="text" id="number_10" style="width:50px" pattern="[0-9]*" /><br />
+    <form id="fisrtFloorNumber">研磨尺寸:
+      <select id="number_11" name="研磨+胶带">
+        <option value="1">10cm常规形状</option>
+        <option value="2">20cm常规形状</option>
+        <option value="3">30cm常规形状</option>
+        <option value="4">40cm常规形状</option>
+        <option value="5">50cm常规形状</option>
+        <option value="6">60cm常规形状</option>
+
+        <option value="7">单耳杯</option>
+        <option value="8">双耳杯</option>
+        <option value="9">30cm特殊研磨</option>
+      </select>
+    </form>
+    其它包材:<input type="text" id="number_12" style="width:50px" value="0" pattern="[0-9]*" /><br />
+    <input type="button" value="计算" onclick="button_5()" /><br />
+    出厂单价:<input type="text" id="sum" style="width:100px" /><br /><br />
+
+    内箱长度:<input type="text" id="number_13" style="width:50px" pattern="[0-9]*" /><br />
+    内箱宽度:<input type="text" id="number_14" style="width:50px" pattern="[0-9]*" /><br />
+    内箱高度:<input type="text" id="number_15" style="width:50px" pattern="[0-9]*" /><br />
+    内箱装数:<input type="text" id="number_16" style="width:50px" pattern="[0-9]*" /><br /><br />
+    外箱长度:<input type="text" id="number_17" style="width:50px" pattern="[0-9]*" /><br />
+    外箱宽度:<input type="text" id="number_18" style="width:50px" pattern="[0-9]*" /><br />
+    外箱高度:<input type="text" id="number_19" style="width:50px" pattern="[0-9]*" /><br />
+    外箱装数:<input type="text" id="number_20" style="width:50px" pattern="[0-9]*" /><br /><br />
+
+    <form id="myFormIMaterial">内箱材质:
+      <select id="Number_98" name="材质选择">
+        <option value="1">B4B</option>
+        <option value="2">B=B</option>
+        <option value="3" selected>B=B+</option>
+        <option value="4">A=B</option>
+        <option value="5">A=B+</option>
+        <option value="6">A=A</option>
+        <option value="7">A=A+</option>
+        <option value="8">K=A</option>
+        <option value="9">K=A+</option>
+        <option value="10">K=K</option>
+        <option value="11">K=K+</option>
+      </select>
+    </form>
+
+    <form id="myFormIMaterial">外箱材质:
+      <select id="Number_97" name="材质选择">
+        <option value="1">B4B</option>
+        <option value="2">B=B</option>
+        <option value="3">B=B+</option>
+        <option value="4">A=B</option>
+        <option value="5">A=B+</option>
+        <option value="6">A=A</option>
+        <option value="7">A=A+</option>
+        <option value="8">K=A</option>
+        <option value="9" selected>K=A+</option>
+        <option value="10">K=K</option>
+        <option value="11">K=K+</option>
+      </select>
+    </form>
+
+    隔板个数:<input type="text" id="number_23" style="width:50px" value="0" pattern="[0-9]*" /><br />
+    <input type="button" value="计算" onclick="button_6()" /><br />
+    纸箱单价:<input type="text" id="sum2" style="width:100px" /><br />
+    总货方数:<input type="text" id="number_25" style="width:100px" /><br />
+    FOB单价:<input type="text" id="number_26" style="width:100px" /><br />
+    <form id="city">物流城市:
+      <select id="number_27" name="城市选择">
+        <option value="1">广州珠三角</option>
+        <option value="2">广州偏远区</option>
+        <option value="3">浙江</option>
+        <option value="4">江苏</option>
+        <option value="5">上海</option>
+        <option value="6">安徽</option>
+        <option value="7">江西</option>
+        <option value="8">广西</option>
+        <option value="9">湖北</option>
+        <option value="10">湖南</option>
+        <option value="11">福建</option>
+        <option value="12">海南</option>
+        <option value="13">河南</option>
+        <option value="14">北京</option>
+        <option value="15">天津</option>
+        <option value="16">山东</option>
+        <option value="17">河北</option>
+        <option value="18">山西</option>
+        <option value="19">四川</option>
+        <option value="20">重庆</option>
+        <option value="21">云南</option>
+        <option value="22">贵州</option>
+        <option value="23">黑龙江</option>
+        <option value="24">吉林</option>
+        <option value="25">辽宁</option>
+        <option value="26">陕西</option>
+        <option value="27">宁夏</option>
+        <option value="28">新疆乌市地区</option>
+        <option value="29">新疆其他</option>
+        <option value="30">青海</option>
+        <option value="31">内蒙</option>
+      </select>
+    </form>
+    中通运费:<input type="text" id="number_28" style="width:100px" /><br /><br />
+
+    <!-- 产品搜索:<input type="text" id="number_productSearch" style="width:50px"/><br />
+      <input type="button" value="计算" onclick="button_productSearch()" /><br />
+      <textarea rows="10" cols="30" id="productResult" style="font-size:medium;"></textarea> -->
+  </div>
+</body>
+
+</html>

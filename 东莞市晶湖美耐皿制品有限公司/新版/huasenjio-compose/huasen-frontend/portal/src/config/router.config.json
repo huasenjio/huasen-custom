@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/",
+    "redirect": "/calc"
+  },
+  {
+    "path": "/error404",
+    "name": "Error404",
+    "menuCode": "000",
+    "component": "error/Error404",
+    "title": "404",
+    "children": []
+  },
+  {
+    "path": "/error403",
+    "name": "Error403",
+    "menuCode": "000",
+    "component": "error/Error403",
+    "title": "403",
+    "children": []
+  },
+  {
+    "path": "/calc",
+    "name": "Calc",
+    "menuCode": "000",
+    "component": "calc/Calc",
+    "title": "计算器",
+    "children": []
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "path": "/",
+    "redirect": "/account-manage"
+  },
+  {
+    "path": "/error404",
+    "name": "Error404",
+    "menuCode": "000",
+    "component": "error/Error404",
+    "title": "404",
+    "children": []
+  },
+  {
+    "path": "/error403",
+    "name": "Error403",
+    "menuCode": "000",
+    "component": "error/Error403",
+    "title": "403",
+    "children": []
+  },
+  {
+    "path": "/account-manage",
+    "name": "AccountManage",
+    "menuCode": "000",
+    "component": "account-manage/AccountManage",
+    "keepAlive": true,
+    "title": "账号管理",
+    "children": []
+  },
+  {
+    "path": "/calculate",
+    "name": "Calculate",
+    "menuCode": "000",
+    "component": "calculate/Calculate",
+    "keepAlive": true,
+    "title": "计算选项",
+    "children": []
+  }
+]
