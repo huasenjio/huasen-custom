@@ -11,7 +11,6 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
-import '@/assets/js/evli.js';
 import 'plugin/directive.js';
 import 'plugin/element-ui/index.js';
 import 'plugin/filter.js';
