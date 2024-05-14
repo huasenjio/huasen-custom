@@ -6,7 +6,10 @@
  * @Description:
  */
 class Storage {
-  constructor() {}
+  constructor() {
+    this.saveType = 'session';
+    this.saver = sessionStorage;
+  }
 
   /**
    * 存储数据
@@ -15,7 +18,7 @@ class Storage {
    * @param {number} expireTime - 过期时间，，单位毫秒，不传永久存储
    */
   setItem(key, value, expireTime) {
-    localStorage.setItem(
+    this.saver.setItem(
       key,
       JSON.stringify({
         value: value,
@@ -30,14 +33,14 @@ class Storage {
    * @returns {(*|undefined)} 存储内容
    */
   getItem(key) {
-    if (!localStorage.getItem(key)) {
+    if (!this.saver.getItem(key)) {
       return;
     }
-    const item = JSON.parse(localStorage.getItem(key));
+    const item = JSON.parse(this.saver.getItem(key));
     if (item.expired === undefined || Date.now() < item.expired) {
       return item.value;
     } else {
-      localStorage.removeItem(key);
+      this.saver.removeItem(key);
     }
   }
 
@@ -47,7 +50,7 @@ class Storage {
    */
   removeItemByKey(key) {
     if (key === undefined || key === null || key === '' || key === 0) return;
-    localStorage.removeItem(key);
+    this.saver.removeItem(key);
   }
 
   /**
@@ -57,7 +60,7 @@ class Storage {
     msg = msg || '您确定清除本地所有存储数据吗？';
     let flag = confirm(msg);
     if (flag) {
-      localStorage.clear();
+      this.saver.clear();
       window.location.reload();
     }
   }
