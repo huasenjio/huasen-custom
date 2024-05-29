@@ -6,11 +6,10 @@
           <i class="el-icon-collection-tag mr-px-4"></i>
           {{ item.name }}
           <!-- 变量配置面板不显示新增图标按钮 -->
-          <i v-if="item.key !== 'variable'" class="el-icon-circle-plus text-green-400 text-18px ml-px-8" @click.stop="handleAdd(item)"></i>
+          <i v-if="item.key !== 'variable' && item.key !== 'function'" class="el-icon-circle-plus text-green-400 text-18px ml-px-8" @click.stop="handleAdd(item)"></i>
         </template>
-
         <!-- 选项配置表格 -->
-        <el-table v-if="item.data.type === 'select'" :data="handleSelectOptions(item.data.value)" style="width: 100%">
+        <el-table class="calculate__table--select" v-if="item.data.type === 'select'" :data="handleSelectOptions(item.data.value)" style="width: 100%">
           <el-table-column type="index" width="50"> </el-table-column>
           <el-table-column prop="label" label="标签名">
             <template slot-scope="scope">
@@ -50,6 +49,12 @@
                 <el-input v-else title="请输入数字" type="number" :min="0" v-model.number="scope.row.more1000"></el-input>
               </template>
             </el-table-column>
+            <el-table-column prop="time" label="运输时间">
+              <template slot-scope="scope">
+                <font v-if="!scope.row.edit">{{ scope.row.time }}</font>
+                <el-input v-else title="请输入文字" v-model="scope.row.time"></el-input>
+              </template>
+            </el-table-column>
           </template>
           <el-table-column label="操作">
             <template slot-scope="scope">
@@ -59,9 +64,8 @@
             </template>
           </el-table-column>
         </el-table>
-
         <!-- 变量配置表格 -->
-        <el-table v-if="item.data.type === 'input'" :data="handleSelectOptions(item.data.value)" style="width: 100%">
+        <el-table class="calculate__table--input" v-if="item.key === 'variable'" :data="handleSelectOptions(item.data.value)" style="width: 100%">
           <el-table-column type="index" width="50"> </el-table-column>
           <el-table-column label="变量">
             <template slot-scope="scope">
@@ -86,14 +90,44 @@
             </template>
           </el-table-column>
         </el-table>
+        <!-- 函数配置表格 -->
+        <el-table ref="CodeTable" class="calculate__table--code" v-if="item.key === 'function'" :data="handleSelectOptions(item.data.value)" style="width: 100%">
+          <el-table-column type="expand">
+            <template slot-scope="props">
+              <div class="w-full h-auto">
+                <CodeEdit :code.sync="props.row.value" :editable="props.row.edit"></CodeEdit>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column type="index" width="50"> </el-table-column>
+          <el-table-column label="方法名">
+            <template slot-scope="scope">
+              <font>{{ scope.row.key }}</font>
+            </template>
+          </el-table-column>
+          <el-table-column prop="label" label="描述">
+            <template slot-scope="scope">
+              <font>{{ scope.row.label }}</font>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button v-if="scope.row.edit" type="success" size="small" @click="handleSave(item, index, scope, 'expand')">完成</el-button>
+              <el-button v-else type="primary" size="small" @click="handleEidt(item, index, scope, 'expand')">编辑</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
       </el-collapse-item>
     </el-collapse>
   </div>
 </template>
 
 <script>
+import CodeEdit from './CodeEdit.vue';
 export default {
   name: 'Calculate',
+
+  components: { CodeEdit },
 
   data() {
     return {
@@ -116,8 +150,26 @@ export default {
       return list;
     },
 
+    /**
+     * 展开函数表中编辑状态的行
+     * @param {array} option
+     */
+    openExpand(option) {
+      // 因为ref使用在v-for中，所以取到数组
+      const table = this.$refs.CodeTable[0];
+      if (table) {
+        this.$nextTick(() => {
+          option.data.value.forEach(el => {
+            if (el.edit) {
+              table && table.toggleRowExpansion(el, true);
+            }
+          });
+        });
+      }
+    },
+
     // 处理点击完成操作
-    async handleSave(option, index, scope) {
+    async handleSave(option, index, scope, flag) {
       // 拷贝数据，调用接口，尝试完成编辑，如果调用不成功，不会影响页面
       let optionCP = this.LODASH.cloneDeep(option);
       const target = optionCP.data.value[scope.$index];
@@ -125,13 +177,19 @@ export default {
       let newOption = await this.updateOption(optionCP);
       // 修改配置数组，页面会自动刷新
       this.options.splice(index, 1, newOption);
+      if (flag === 'expand') {
+        this.openExpand(newOption);
+      }
     },
 
     // 处理编辑操作
-    handleEidt(option, scope) {
+    handleEidt(option, index, scope, flag) {
       let target = option.data.value[scope.$index];
       target.edit = true;
       this.$set(option.data.value, scope.$index, target);
+      if (flag === 'expand') {
+        this.openExpand(option);
+      }
     },
 
     // 处理删除操作
@@ -182,5 +240,13 @@ export default {
 .calculate {
   width: 100%;
   padding: 10px;
+}
+</style>
+
+<style>
+.calculate__table--code {
+  .el-table__expanded-cell[class*='cell'] {
+    padding: 0;
+  }
 }
 </style>
