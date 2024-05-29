@@ -6,15 +6,267 @@ const CalculateOption = require('../model/calculate-option.js');
       if (!calculateOptions.length) {
         await CalculateOption.insertMany([
           {
+            name: '函数配置',
+            key: 'function',
+            data: JSON.stringify({
+              type: 'code',
+              value: [
+                {
+                  key: 'chanPinZhongLiangFun',
+                  label: '增加毛边重量函数',
+                  value: `if (value < 50) {
+                    value += 5;
+                  } else if (value < 100) {
+                    value += 10;
+                  } else if (value < 300) {
+                    value += 15;
+                  } else if (value < 500) {
+                    value += 25;
+                  } else if (value < 600) {
+                    value += 30;
+                  } else if (value < 1000) {
+                    value += 50;
+                  } else if (value < 1500) {
+                    value += 70;
+                  } else {
+                    value += 100;
+                  }`,
+                },
+                {
+                  key: 'quJianZhiRiChanLiangFun',
+                  label: '区间值日产量函数',
+                  value: `if (craftOrder == 1) {
+                    if (weight <= 400) {
+                      value = 30;
+                    } else if (weight <= 600) {
+                      value = 25;
+                    } else if (weight <= 1000) {
+                      value = 18;
+                    } else if (weight <= 1500) {
+                      value = 15;
+                    } else if (weight <= 2000) {
+                      value = 10;
+                    } else {
+                      value = 6;
+                    }
+                  } else if (craftOrder == 2) {
+                    if (weight <= 400) {
+                      value = 20;
+                    } else if (weight <= 600) {
+                      value = 17;
+                    } else if (weight <= 1000) {
+                      value = 13;
+                    } else if (weight <= 1500) {
+                      value = 10;
+                    } else if (weight <= 2000) {
+                      value = 8;
+                    } else {
+                      value = 5;
+                    }
+                  } else if (craftOrder == 3) {
+                    if (weight <= 400) {
+                      value = 15;
+                    } else if (weight <= 600) {
+                      value = 13;
+                    } else if (weight <= 1000) {
+                      value = 11;
+                    } else if (weight <= 1500) {
+                      value = 9;
+                    } else if (weight <= 2000) {
+                      value = 7;
+                    } else {
+                      value = 5;
+                    }
+                  } else if (craftOrder == 4) {
+                    if (weight <= 400) {
+                      value = 20;
+                    } else if (weight <= 600) {
+                      value = 17;
+                    } else if (weight <= 1000) {
+                      value = 13;
+                    } else if (weight <= 1500) {
+                      value = 10;
+                    } else if (weight <= 2000) {
+                      value = 8;
+                    } else {
+                      value = 5;
+                    }
+                  } else if (craftOrder == 5) {
+                    if (weight <= 400) {
+                      value = 10;
+                    } else if (weight <= 600) {
+                      value = 9;
+                    } else if (weight <= 1000) {
+                      value = 8;
+                    } else if (weight <= 1500) {
+                      value = 8;
+                    } else if (weight <= 2000) {
+                      value = 6;
+                    } else {
+                      value = 5;
+                    }
+                  } else if (craftOrder == 6) {
+                    if (weight <= 400) {
+                      value = 20;
+                    } else if (weight <= 600) {
+                      value = 17;
+                    } else if (weight <= 1000) {
+                      value = 13;
+                    } else if (weight <= 1500) {
+                      value = 10;
+                    } else if (weight <= 2000) {
+                      value = 8;
+                    } else {
+                      value = 5;
+                    }
+                  } else if (craftOrder == 7) {
+                    if (weight <= 400) {
+                      value = 10;
+                    } else if (weight <= 600) {
+                      value = 9;
+                    } else if (weight <= 1000) {
+                      value = 8;
+                    } else if (weight <= 1500) {
+                      value = 8;
+                    } else if (weight <= 2000) {
+                      value = 6;
+                    } else {
+                      value = 5;
+                    }
+                  } else if (craftOrder == 8) {
+                    if (weight <= 400) {
+                      value = 20;
+                    } else if (weight <= 600) {
+                      value = 17;
+                    } else if (weight <= 1000) {
+                      value = 13;
+                    } else if (weight <= 1500) {
+                      value = 10;
+                    } else if (weight <= 2000) {
+                      value = 8;
+                    } else {
+                      value = 5;
+                    }
+                  } else if (craftOrder == 9) {
+                    if (weight <= 400) {
+                      value = 10;
+                    } else if (weight <= 600) {
+                      value = 9;
+                    } else if (weight <= 1000) {
+                      value = 8;
+                    } else if (weight <= 1500) {
+                      value = 8;
+                    } else if (weight <= 2000) {
+                      value = 6;
+                    } else {
+                      value = 5;
+                    }
+                  } else if (craftOrder == 10) {
+                    if (weight <= 400) {
+                      value = 15;
+                    } else if (weight <= 600) {
+                      value = 14;
+                    } else if (weight <= 1000) {
+                      value = 11;
+                    } else if (weight <= 1500) {
+                      value = 10;
+                    } else if (weight <= 2000) {
+                      value = 8;
+                    } else {
+                      value = 5;
+                    }
+                  } else if (craftOrder == 11) {
+                    if (weight <= 400) {
+                      value = 9;
+                    } else if (weight <= 600) {
+                      value = 8;
+                    } else if (weight <= 1000) {
+                      value = 7;
+                    } else if (weight <= 1500) {
+                      value = 7;
+                    } else if (weight <= 2000) {
+                      value = 5;
+                    } else {
+                      value = 3;
+                    }
+                  } else if (craftOrder == 12) {
+                    if (weight <= 400) {
+                      value = 12;
+                    } else if (weight <= 600) {
+                      value = 10;
+                    } else if (weight <= 1000) {
+                      value = 9;
+                    } else if (weight <= 1500) {
+                      value = 7;
+                    } else if (weight <= 2000) {
+                      value = 6;
+                    } else {
+                      value = 3;
+                    }
+                  } else if (craftOrder == 13) {
+                    if (weight <= 400) {
+                      value = 7;
+                    } else if (weight <= 600) {
+                      value = 7;
+                    } else if (weight <= 1000) {
+                      value = 6;
+                    } else if (weight <= 1500) {
+                      value = 5;
+                    } else if (weight <= 2000) {
+                      value = 5;
+                    } else {
+                      value = 3;
+                    }
+                  }`,
+                },
+              ],
+            }),
+          },
+          {
             name: '变量配置',
             key: 'variable',
             data: JSON.stringify({
               type: 'input',
               value: [
                 {
-                  key: 'exchangeRate',
+                  key: 'huiLv',
                   label: '汇率',
                   value: 6.8,
+                },
+                {
+                  key: 'liangGuangFenPrice',
+                  label: '亮光粉价格',
+                  value: 15.625,
+                },
+                {
+                  key: 'gongShi',
+                  label: '工时',
+                  value: 20,
+                },
+                {
+                  key: 'fuZhuSunHao',
+                  label: '辅助损耗',
+                  value: 1.25,
+                },
+                {
+                  key: 'huaZhi1',
+                  label: '花纸1号',
+                  value: 637.5,
+                },
+                {
+                  key: 'huaZhi2',
+                  label: '花纸2号',
+                  value: 750,
+                },
+                {
+                  key: 'yuanLiaoQiDingLiang',
+                  label: '原料起订量（g）',
+                  value: 380000,
+                },
+                {
+                  key: 'yuanLiaoQiDingLiangDanJia',
+                  label: '有色原料起订量单价（元）',
+                  value: 24.375,
                 },
               ],
             }),
@@ -36,6 +288,7 @@ const CalculateOption = require('../model/calculate-option.js');
                 {
                   label: '有色产品',
                   value: 25.6,
+                  key: 'youSe',
                 },
                 {
                   label: '大理石产品',
@@ -347,6 +600,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 0.6,
                   less1000: 0.6,
                   more1000: 0.5,
+                  time: '1天',
                 },
                 {
                   label: '广州偏远区',
@@ -355,6 +609,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 0.7,
                   less1000: 0.6,
                   more1000: 0.6,
+                  time: '1-2天',
                 },
                 {
                   label: '浙江',
@@ -363,6 +618,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.2,
                   less1000: 1,
                   more1000: 0.9,
+                  time: '2-3天',
                 },
                 {
                   label: '江苏',
@@ -371,6 +627,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.2,
                   less1000: 1,
                   more1000: 0.9,
+                  time: '2-3天',
                 },
                 {
                   label: '上海',
@@ -379,6 +636,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.2,
                   less1000: 1,
                   more1000: 0.9,
+                  time: '2-3天',
                 },
                 {
                   label: '安徽',
@@ -387,6 +645,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.2,
                   less1000: 1,
                   more1000: 0.9,
+                  time: '2-3天',
                 },
                 {
                   label: '江西',
@@ -395,6 +654,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1,
                   less1000: 0.9,
                   more1000: 0.7,
+                  time: '2-3天',
                 },
                 {
                   label: '广西',
@@ -403,6 +663,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1,
                   less1000: 0.9,
                   more1000: 0.7,
+                  time: '2-3天',
                 },
                 {
                   label: '湖北',
@@ -411,6 +672,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1,
                   less1000: 0.9,
                   more1000: 0.7,
+                  time: '2-3天',
                 },
                 {
                   label: '湖南',
@@ -419,6 +681,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1,
                   less1000: 0.9,
                   more1000: 0.7,
+                  time: '2-3天',
                 },
                 {
                   label: '福建',
@@ -427,6 +690,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1,
                   less1000: 0.9,
                   more1000: 0.7,
+                  time: '2-3天',
                 },
                 {
                   label: '海南',
@@ -435,6 +699,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.6,
                   less1000: 1.3,
                   more1000: 1.1,
+                  time: '2-3天',
                 },
                 {
                   label: '河南',
@@ -443,6 +708,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.2,
                   less1000: 1.1,
                   more1000: 0.9,
+                  time: '3-4天',
                 },
                 {
                   label: '北京',
@@ -451,6 +717,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1,
+                  time: '3-4天',
                 },
                 {
                   label: '天津',
@@ -459,6 +726,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1,
+                  time: '3-4天',
                 },
                 {
                   label: '山东',
@@ -467,6 +735,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1,
+                  time: '3-4天',
                 },
                 {
                   label: '河北',
@@ -475,6 +744,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1,
+                  time: '3-4天',
                 },
                 {
                   label: '山西',
@@ -483,6 +753,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1,
+                  time: '3-4天',
                 },
                 {
                   label: '四川',
@@ -491,6 +762,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1,
+                  time: '3-4天',
                 },
                 {
                   label: '重庆',
@@ -499,6 +771,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1,
+                  time: '3-4天',
                 },
                 {
                   label: '云南',
@@ -507,6 +780,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1,
+                  time: '3-4天',
                 },
                 {
                   label: '贵州',
@@ -515,6 +789,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1,
+                  time: '3-4天',
                 },
                 {
                   label: '黑龙江',
@@ -523,6 +798,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.8,
                   less1000: 1.6,
                   more1000: 1.3,
+                  time: '4-6天',
                 },
                 {
                   label: '吉林',
@@ -531,6 +807,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.8,
                   less1000: 1.6,
                   more1000: 1.3,
+                  time: '4-6天',
                 },
                 {
                   label: '辽宁',
@@ -539,6 +816,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.8,
                   less1000: 1.6,
                   more1000: 1.3,
+                  time: '4-6天',
                 },
                 {
                   label: '陕西',
@@ -547,6 +825,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.4,
                   less1000: 1.2,
                   more1000: 1.3,
+                  time: '4-5天',
                 },
                 {
                   label: '宁夏',
@@ -555,6 +834,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 1.9,
                   less1000: 1.6,
                   more1000: 1.4,
+                  time: '4-5天',
                 },
                 {
                   label: '新疆乌市地区',
@@ -563,6 +843,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 4,
                   less1000: 3.5,
                   more1000: 3,
+                  time: '5-7天',
                 },
                 {
                   label: '新疆其他',
@@ -571,6 +852,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 6.5,
                   less1000: 6,
                   more1000: 5,
+                  time: '5-7天',
                 },
                 {
                   label: '青海',
@@ -579,6 +861,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 4.5,
                   less1000: 4,
                   more1000: 3.5,
+                  time: '5-7天',
                 },
                 {
                   label: '内蒙',
@@ -587,6 +870,7 @@ const CalculateOption = require('../model/calculate-option.js');
                   less500: 2.1,
                   less1000: 1.8,
                   more1000: 1.6,
+                  time: '5-7天',
                 },
               ],
             }),
