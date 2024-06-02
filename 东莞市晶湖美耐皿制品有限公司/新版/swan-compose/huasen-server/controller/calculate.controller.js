@@ -41,7 +41,24 @@ async function update(req, res, next) {
   }
 }
 
+async function add(req, res, next) {
+  try {
+    const { name, key, data } = req.huasenParams;
+    let list = await CalculateOption.insertMany([
+      {
+        name,
+        key,
+        data,
+      },
+    ]);
+    global.huasen.responseData(res, list, 'SUCCESS', '添加成功', false);
+  } catch (err) {
+    global.huasen.responseData(res, {}, 'ERROR', '添加失败', false);
+  }
+}
+
 module.exports = {
   getOptions,
   update,
+  add,
 };

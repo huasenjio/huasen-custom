@@ -59,8 +59,10 @@
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button v-if="scope.row.edit" type="success" size="small" @click="handleSave(item, index, scope)">完成</el-button>
-              <el-button v-else type="primary" size="small" @click="handleEidt(item, scope)">编辑</el-button>
-              <el-button type="danger" size="small" @click="handleRemove(item, index, scope)">删除</el-button>
+              <el-button v-else type="primary" size="small" @click="handleEidt(item, index, scope)">编辑</el-button>
+              <el-popconfirm @confirm="handleRemove(item, index, scope)" class="ml-px-10" popper-class="delete-popcomfirm" title="确定删除吗？">
+                <el-button slot="reference" type="danger" size="small">删除</el-button>
+              </el-popconfirm>
             </template>
           </el-table-column>
         </el-table>
@@ -86,7 +88,7 @@
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button v-if="scope.row.edit" type="success" size="small" @click="handleSave(item, index, scope)">完成</el-button>
-              <el-button v-else type="primary" size="small" @click="handleEidt(item, scope)">编辑</el-button>
+              <el-button v-else type="primary" size="small" @click="handleEidt(item, index, scope)">编辑</el-button>
             </template>
           </el-table-column>
         </el-table>
