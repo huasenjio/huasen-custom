@@ -57,6 +57,13 @@
           </template>
         </el-input>
       </el-form-item>
+      <el-form-item label="出厂美金价格：">
+        <el-input :value="'$' + factoryDollarPrice.toFixed(2)" :disabled="true">
+          <template slot="append">
+            <i class="el-icon-document-copy pointer" @click="copy('$' + factoryDollarPrice.toFixed(2))"></i>
+          </template>
+        </el-input>
+      </el-form-item>
       <el-form-item label="内箱长度：">
         <el-input type="number" :min="0" v-model.number="form.nL">
           <template slot="append">
@@ -168,6 +175,10 @@ export default {
       type: Object,
       default: () => {},
     },
+    functionMap: {
+      type: Object,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -222,14 +233,27 @@ export default {
       const s = this.form.grindSize;
       const t = this.form.pick;
       const control = this.craftFlag;
-      let value = (i * j * k) / 1000 + (15.625 * k * n) / 1000 + l / (m * moxue * 20) + s + t * 1.25 + q / r + ((637.5 / ((orderQty / p) * (j + 0.05)) + 750 / ((orderQty / p) * (j + 0.05)) + 0.625 + 0.125 * p + 0.4375) / p) * (j + 0.05) * control;
+      let value =
+        (i * j * k) / 1000 +
+        (this.variable.liangGuangFenPrice * k * n) / 1000 +
+        l / (m * moxue * this.variable.gongShi) +
+        s +
+        t * this.variable.fuZhuSunHao +
+        q / r +
+        ((this.variable.huaZhi1 / ((orderQty / p) * (j + 0.05)) + this.variable.huaZhi2 / ((orderQty / p) * (j + 0.05)) + 0.625 + 0.125 * p + 0.4375) / p) * (j + 0.05) * control;
       return value;
+    },
+
+    // 出厂美元单价
+    factoryDollarPrice() {
+      let huiLv = parseFloat(this.variable.huiLv);
+      return this.factoryUnitPrice / huiLv;
     },
 
     // FOB单价
     FOBPrice() {
-      let exchangeRate = parseFloat(this.variable.exchangeRate);
-      const value = ((this.cubeCount * 70 + 500 + 350 + 100 + 200 + 300 + 300 + 500) / this.form.orderCount + this.factoryUnitPrice) / exchangeRate;
+      let huiLv = parseFloat(this.variable.huiLv);
+      const value = ((this.cubeCount * 70 + 500 + 350 + 100 + 200 + 300 + 300 + 500) / this.form.orderCount + this.factoryUnitPrice) / huiLv;
       return value;
     },
 
@@ -290,220 +314,238 @@ export default {
       let craftOrder = this.form.craftOrder;
       let weight = this.form.productWeight;
       let value = 0;
-      if (craftOrder == 1) {
-        if (weight <= 400) {
-          value = 30;
-        } else if (weight <= 600) {
-          value = 25;
-        } else if (weight <= 1000) {
-          value = 18;
-        } else if (weight <= 1500) {
-          value = 15;
-        } else if (weight <= 2000) {
-          value = 10;
-        } else {
-          value = 6;
-        }
-      } else if (craftOrder == 2) {
-        if (weight <= 400) {
-          value = 20;
-        } else if (weight <= 600) {
-          value = 17;
-        } else if (weight <= 1000) {
-          value = 13;
-        } else if (weight <= 1500) {
-          value = 10;
-        } else if (weight <= 2000) {
-          value = 8;
-        } else {
-          value = 5;
-        }
-      } else if (craftOrder == 3) {
-        if (weight <= 400) {
-          value = 15;
-        } else if (weight <= 600) {
-          value = 13;
-        } else if (weight <= 1000) {
-          value = 11;
-        } else if (weight <= 1500) {
-          value = 9;
-        } else if (weight <= 2000) {
-          value = 7;
-        } else {
-          value = 5;
-        }
-      } else if (craftOrder == 4) {
-        if (weight <= 400) {
-          value = 20;
-        } else if (weight <= 600) {
-          value = 17;
-        } else if (weight <= 1000) {
-          value = 13;
-        } else if (weight <= 1500) {
-          value = 10;
-        } else if (weight <= 2000) {
-          value = 8;
-        } else {
-          value = 5;
-        }
-      } else if (craftOrder == 5) {
-        if (weight <= 400) {
-          value = 10;
-        } else if (weight <= 600) {
-          value = 9;
-        } else if (weight <= 1000) {
-          value = 8;
-        } else if (weight <= 1500) {
-          value = 8;
-        } else if (weight <= 2000) {
-          value = 6;
-        } else {
-          value = 5;
-        }
-      } else if (craftOrder == 6) {
-        if (weight <= 400) {
-          value = 20;
-        } else if (weight <= 600) {
-          value = 17;
-        } else if (weight <= 1000) {
-          value = 13;
-        } else if (weight <= 1500) {
-          value = 10;
-        } else if (weight <= 2000) {
-          value = 8;
-        } else {
-          value = 5;
-        }
-      } else if (craftOrder == 7) {
-        if (weight <= 400) {
-          value = 10;
-        } else if (weight <= 600) {
-          value = 9;
-        } else if (weight <= 1000) {
-          value = 8;
-        } else if (weight <= 1500) {
-          value = 8;
-        } else if (weight <= 2000) {
-          value = 6;
-        } else {
-          value = 5;
-        }
-      } else if (craftOrder == 8) {
-        if (weight <= 400) {
-          value = 20;
-        } else if (weight <= 600) {
-          value = 17;
-        } else if (weight <= 1000) {
-          value = 13;
-        } else if (weight <= 1500) {
-          value = 10;
-        } else if (weight <= 2000) {
-          value = 8;
-        } else {
-          value = 5;
-        }
-      } else if (craftOrder == 9) {
-        if (weight <= 400) {
-          value = 10;
-        } else if (weight <= 600) {
-          value = 9;
-        } else if (weight <= 1000) {
-          value = 8;
-        } else if (weight <= 1500) {
-          value = 8;
-        } else if (weight <= 2000) {
-          value = 6;
-        } else {
-          value = 5;
-        }
-      } else if (craftOrder == 10) {
-        if (weight <= 400) {
-          value = 15;
-        } else if (weight <= 600) {
-          value = 14;
-        } else if (weight <= 1000) {
-          value = 11;
-        } else if (weight <= 1500) {
-          value = 10;
-        } else if (weight <= 2000) {
-          value = 8;
-        } else {
-          value = 5;
-        }
-      } else if (craftOrder == 11) {
-        if (weight <= 400) {
-          value = 9;
-        } else if (weight <= 600) {
-          value = 8;
-        } else if (weight <= 1000) {
-          value = 7;
-        } else if (weight <= 1500) {
-          value = 7;
-        } else if (weight <= 2000) {
-          value = 5;
-        } else {
-          value = 3;
-        }
-      } else if (craftOrder == 12) {
-        if (weight <= 400) {
-          value = 12;
-        } else if (weight <= 600) {
-          value = 10;
-        } else if (weight <= 1000) {
-          value = 9;
-        } else if (weight <= 1500) {
-          value = 7;
-        } else if (weight <= 2000) {
-          value = 6;
-        } else {
-          value = 3;
-        }
-      } else if (craftOrder == 13) {
-        if (weight <= 400) {
-          value = 7;
-        } else if (weight <= 600) {
-          value = 7;
-        } else if (weight <= 1000) {
-          value = 6;
-        } else if (weight <= 1500) {
-          value = 5;
-        } else if (weight <= 2000) {
-          value = 5;
-        } else {
-          value = 3;
-        }
-      }
+      // 使用后台服务存储的方法创建方法，传入的形参有value、craftOrder、weight，返回值为value
+      const functionBody = this.functionMap['quJianZhiRiChanLiangFun'] + 'return value';
+      const fun = new Function('value', 'craftOrder', 'weight', functionBody);
+      value = fun(value, craftOrder, weight);
+      // if (craftOrder == 1) {
+      //   if (weight <= 400) {
+      //     value = 30;
+      //   } else if (weight <= 600) {
+      //     value = 25;
+      //   } else if (weight <= 1000) {
+      //     value = 18;
+      //   } else if (weight <= 1500) {
+      //     value = 15;
+      //   } else if (weight <= 2000) {
+      //     value = 10;
+      //   } else {
+      //     value = 6;
+      //   }
+      // } else if (craftOrder == 2) {
+      //   if (weight <= 400) {
+      //     value = 20;
+      //   } else if (weight <= 600) {
+      //     value = 17;
+      //   } else if (weight <= 1000) {
+      //     value = 13;
+      //   } else if (weight <= 1500) {
+      //     value = 10;
+      //   } else if (weight <= 2000) {
+      //     value = 8;
+      //   } else {
+      //     value = 5;
+      //   }
+      // } else if (craftOrder == 3) {
+      //   if (weight <= 400) {
+      //     value = 15;
+      //   } else if (weight <= 600) {
+      //     value = 13;
+      //   } else if (weight <= 1000) {
+      //     value = 11;
+      //   } else if (weight <= 1500) {
+      //     value = 9;
+      //   } else if (weight <= 2000) {
+      //     value = 7;
+      //   } else {
+      //     value = 5;
+      //   }
+      // } else if (craftOrder == 4) {
+      //   if (weight <= 400) {
+      //     value = 20;
+      //   } else if (weight <= 600) {
+      //     value = 17;
+      //   } else if (weight <= 1000) {
+      //     value = 13;
+      //   } else if (weight <= 1500) {
+      //     value = 10;
+      //   } else if (weight <= 2000) {
+      //     value = 8;
+      //   } else {
+      //     value = 5;
+      //   }
+      // } else if (craftOrder == 5) {
+      //   if (weight <= 400) {
+      //     value = 10;
+      //   } else if (weight <= 600) {
+      //     value = 9;
+      //   } else if (weight <= 1000) {
+      //     value = 8;
+      //   } else if (weight <= 1500) {
+      //     value = 8;
+      //   } else if (weight <= 2000) {
+      //     value = 6;
+      //   } else {
+      //     value = 5;
+      //   }
+      // } else if (craftOrder == 6) {
+      //   if (weight <= 400) {
+      //     value = 20;
+      //   } else if (weight <= 600) {
+      //     value = 17;
+      //   } else if (weight <= 1000) {
+      //     value = 13;
+      //   } else if (weight <= 1500) {
+      //     value = 10;
+      //   } else if (weight <= 2000) {
+      //     value = 8;
+      //   } else {
+      //     value = 5;
+      //   }
+      // } else if (craftOrder == 7) {
+      //   if (weight <= 400) {
+      //     value = 10;
+      //   } else if (weight <= 600) {
+      //     value = 9;
+      //   } else if (weight <= 1000) {
+      //     value = 8;
+      //   } else if (weight <= 1500) {
+      //     value = 8;
+      //   } else if (weight <= 2000) {
+      //     value = 6;
+      //   } else {
+      //     value = 5;
+      //   }
+      // } else if (craftOrder == 8) {
+      //   if (weight <= 400) {
+      //     value = 20;
+      //   } else if (weight <= 600) {
+      //     value = 17;
+      //   } else if (weight <= 1000) {
+      //     value = 13;
+      //   } else if (weight <= 1500) {
+      //     value = 10;
+      //   } else if (weight <= 2000) {
+      //     value = 8;
+      //   } else {
+      //     value = 5;
+      //   }
+      // } else if (craftOrder == 9) {
+      //   if (weight <= 400) {
+      //     value = 10;
+      //   } else if (weight <= 600) {
+      //     value = 9;
+      //   } else if (weight <= 1000) {
+      //     value = 8;
+      //   } else if (weight <= 1500) {
+      //     value = 8;
+      //   } else if (weight <= 2000) {
+      //     value = 6;
+      //   } else {
+      //     value = 5;
+      //   }
+      // } else if (craftOrder == 10) {
+      //   if (weight <= 400) {
+      //     value = 15;
+      //   } else if (weight <= 600) {
+      //     value = 14;
+      //   } else if (weight <= 1000) {
+      //     value = 11;
+      //   } else if (weight <= 1500) {
+      //     value = 10;
+      //   } else if (weight <= 2000) {
+      //     value = 8;
+      //   } else {
+      //     value = 5;
+      //   }
+      // } else if (craftOrder == 11) {
+      //   if (weight <= 400) {
+      //     value = 9;
+      //   } else if (weight <= 600) {
+      //     value = 8;
+      //   } else if (weight <= 1000) {
+      //     value = 7;
+      //   } else if (weight <= 1500) {
+      //     value = 7;
+      //   } else if (weight <= 2000) {
+      //     value = 5;
+      //   } else {
+      //     value = 3;
+      //   }
+      // } else if (craftOrder == 12) {
+      //   if (weight <= 400) {
+      //     value = 12;
+      //   } else if (weight <= 600) {
+      //     value = 10;
+      //   } else if (weight <= 1000) {
+      //     value = 9;
+      //   } else if (weight <= 1500) {
+      //     value = 7;
+      //   } else if (weight <= 2000) {
+      //     value = 6;
+      //   } else {
+      //     value = 3;
+      //   }
+      // } else if (craftOrder == 13) {
+      //   if (weight <= 400) {
+      //     value = 7;
+      //   } else if (weight <= 600) {
+      //     value = 7;
+      //   } else if (weight <= 1000) {
+      //     value = 6;
+      //   } else if (weight <= 1500) {
+      //     value = 5;
+      //   } else if (weight <= 2000) {
+      //     value = 5;
+      //   } else {
+      //     value = 3;
+      //   }
+      // }
       return value;
     },
 
     colorFlag() {
       let value = this.form.colorPrice;
-      if (this.form.orderCount * this.productWeightFlag > 380000 && this.form.colorPrice === 25.6) {
-        value = 24.375;
+      if (this.form.orderCount * this.productWeightFlag > this.variable.yuanLiaoQiDingLiang && this.form.colorPrice === this.youSePrice) {
+        value = this.variable.yuanLiaoQiDingLiangDanJia;
       }
       return value;
     },
 
     productWeightFlag() {
       let value = this.form.productWeight;
-      if (value < 50) {
-        value += 5;
-      } else if (value < 100) {
-        value += 10;
-      } else if (value < 300) {
-        value += 15;
-      } else if (value < 500) {
-        value += 25;
-      } else if (value < 600) {
-        value += 30;
-      } else if (value < 1000) {
-        value += 50;
-      } else if (value < 1500) {
-        value += 70;
-      } else {
-        value += 100;
-      }
+      // 使用后台服务存储的方法创建方法，形参、返回值均为value
+      const functionBody = this.functionMap['chanPinZhongLiangFun'] + 'return value';
+      const fun = new Function('value', functionBody);
+      value = fun(value);
+      // if (value < 50) {
+      //   value += 5;
+      // } else if (value < 100) {
+      //   value += 10;
+      // } else if (value < 300) {
+      //   value += 15;
+      // } else if (value < 500) {
+      //   value += 25;
+      // } else if (value < 600) {
+      //   value += 30;
+      // } else if (value < 1000) {
+      //   value += 50;
+      // } else if (value < 1500) {
+      //   value += 70;
+      // } else {
+      //   value += 100;
+      // }
       return value;
+    },
+
+    youSePrice() {
+      let exist = this.optionMap.colorOptions.find(item => item.key === 'youSe');
+      if (exist) {
+        return exist.value;
+      } else {
+        alert('有色产品价格异常');
+        return 0;
+      }
     },
   },
 
@@ -557,43 +599,49 @@ export default {
       return temp4 * realtotalweight * 1.1;
     },
 
+    // 计算运输时间
     getTransportDay() {
-      const destinationCity = this.form.destinationCity;
-      let temp4 = '0天';
-      if (destinationCity == 1) {
-        temp4 = ' 1天';
-      } else if (destinationCity == 2) {
-        temp4 = ' 1-2天';
-      } else if (destinationCity == 3 || destinationCity == 4 || destinationCity == 5 || destinationCity == 6) {
-        temp4 = ' 2-3天';
-      } else if (destinationCity == 7 || destinationCity == 8 || destinationCity == 9 || destinationCity == 10 || destinationCity == 11) {
-        temp4 = ' 2-3天';
-      } else if (destinationCity == 12) {
-        temp4 = ' 2-3天';
-      } else if (destinationCity == 13) {
-        temp4 = ' 3-4天';
-      } else if (destinationCity == 14 || destinationCity == 15 || destinationCity == 16 || destinationCity == 17 || destinationCity == 18) {
-        temp4 = ' 3-4天';
-      } else if (destinationCity == 19 || destinationCity == 20) {
-        temp4 = ' 3-4天';
-      } else if (destinationCity == 21 || destinationCity == 22) {
-        temp4 = ' 3-4天';
-      } else if (destinationCity == 23 || destinationCity == 24 || destinationCity == 25) {
-        temp4 = ' 4-6天';
-      } else if (destinationCity == 26) {
-        temp4 = ' 4-5天';
-      } else if (destinationCity == 27) {
-        temp4 = ' 4-5天';
-      } else if (destinationCity == 28) {
-        temp4 = ' 5-7天';
-      } else if (destinationCity == 29) {
-        temp4 = ' 5-7天';
-      } else if (destinationCity == 30) {
-        temp4 = ' 5-7天';
-      } else if (destinationCity == 31) {
-        temp4 = ' 5-7天';
-      }
-      return temp4;
+      const destinationCityOrder = this.form.destinationCityOrder; // 物流城市的序号
+      const destinationCityIndex = destinationCityOrder - 1; //序号减1就是数组下标
+      const destinationCityObj = this.optionMap.destinationCityOptions[destinationCityIndex]; // 物流城市对象
+      return destinationCityObj.time || '0天';
+
+      // const destinationCity = this.form.destinationCity;
+      // let temp4 = '0天';
+      // if (destinationCity == 1) {
+      //   temp4 = ' 1天';
+      // } else if (destinationCity == 2) {
+      //   temp4 = ' 1-2天';
+      // } else if (destinationCity == 3 || destinationCity == 4 || destinationCity == 5 || destinationCity == 6) {
+      //   temp4 = ' 2-3天';
+      // } else if (destinationCity == 7 || destinationCity == 8 || destinationCity == 9 || destinationCity == 10 || destinationCity == 11) {
+      //   temp4 = ' 2-3天';
+      // } else if (destinationCity == 12) {
+      //   temp4 = ' 2-3天';
+      // } else if (destinationCity == 13) {
+      //   temp4 = ' 3-4天';
+      // } else if (destinationCity == 14 || destinationCity == 15 || destinationCity == 16 || destinationCity == 17 || destinationCity == 18) {
+      //   temp4 = ' 3-4天';
+      // } else if (destinationCity == 19 || destinationCity == 20) {
+      //   temp4 = ' 3-4天';
+      // } else if (destinationCity == 21 || destinationCity == 22) {
+      //   temp4 = ' 3-4天';
+      // } else if (destinationCity == 23 || destinationCity == 24 || destinationCity == 25) {
+      //   temp4 = ' 4-6天';
+      // } else if (destinationCity == 26) {
+      //   temp4 = ' 4-5天';
+      // } else if (destinationCity == 27) {
+      //   temp4 = ' 4-5天';
+      // } else if (destinationCity == 28) {
+      //   temp4 = ' 5-7天';
+      // } else if (destinationCity == 29) {
+      //   temp4 = ' 5-7天';
+      // } else if (destinationCity == 30) {
+      //   temp4 = ' 5-7天';
+      // } else if (destinationCity == 31) {
+      //   temp4 = ' 5-7天';
+      // }
+      // return temp4;
     },
   },
 };

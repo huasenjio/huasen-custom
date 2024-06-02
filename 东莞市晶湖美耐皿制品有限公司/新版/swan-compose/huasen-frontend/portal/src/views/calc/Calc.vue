@@ -1,7 +1,7 @@
 <template>
   <div class="calc">
     <template v-if="loaded">
-      <Calculator :optionMap="optionMap" :variable="variable" v-for="(item, index) in calculators" :key="item + index"></Calculator>
+      <Calculator :optionMap="optionMap" :functionMap="functionMap" :variable="variable" v-for="(item, index) in calculators" :key="item + index"></Calculator>
     </template>
   </div>
 </template>
@@ -20,9 +20,11 @@ export default {
       cpnHeight: 0,
 
       loaded: false, // 数据是否已加载
-      variable: {
-        exchangeRate: 6.8, // 汇率
-      },
+      // 变量
+      variable: {},
+      // 方法
+      functionMap: {},
+      // 选项
       optionMap: {
         colorOptions: [],
         orderCountOptions: [],
@@ -74,11 +76,17 @@ export default {
         .then(res => {
           let opt = {};
           let val = {};
+          let fun = {};
           res.data.forEach(el => {
             if (el.key === 'variable') {
               // 获得变量
               el.data.value.forEach(e => {
                 val[e.key] = e.value;
+              });
+            } else if (el.key === 'function') {
+              // 获得方法
+              el.data.value.forEach(e => {
+                fun[e.key] = e.value;
               });
             } else {
               // 获得下拉选项
@@ -87,6 +95,7 @@ export default {
           });
           this.optionMap = opt;
           this.variable = val;
+          this.functionMap = fun;
           this.loaded = true;
         })
         .catch(err => {
